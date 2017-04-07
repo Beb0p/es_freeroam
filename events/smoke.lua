@@ -64,8 +64,8 @@ function tick()
                         while true do
                           vehCheck = IsPedInAnyVehicle(GetPlayerPed(-1), true)
                             if vehCheck then
-                              SetPlayerWantedLevel(PlayerId(), 1, 0)
-                              SetPlayerWantedLevelNow(PlayerId(), 0)
+                              SetPlayerWantedLevel(PlayerId(), 1, true)
+                              SetPlayerWantedLevelNow(PlayerId(), true)
                               Citizen.Wait(59000)
                             end
                         end

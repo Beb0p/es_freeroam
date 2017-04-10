@@ -1,3 +1,4 @@
+require "resources/essentialmode/lib/MySQL"
 MySQL:open(database.host, database.name, database.username, database.password)
 
 RegisterServerEvent('CheckMoneyForVeh')

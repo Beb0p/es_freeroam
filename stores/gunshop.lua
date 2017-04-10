@@ -20,18 +20,18 @@ opened = false,
 		to = 10,
 		scale = 0.4,
 		font = 0,
-		["main"] = { 
-			title = "CATEGORIES", 
+		["main"] = {
+			title = "CATEGORIES",
 			name = "main",
-			buttons = { 
+			buttons = {
 				{name = "Weapons", description = ""},
 				{name = "Armor", description = ""},
 			}
 		},
-		["weapons"] = { 
-			title = "Weapons", 
+		["weapons"] = {
+			title = "Weapons",
 			name = "weapons",
-			buttons = { 
+			buttons = {
 				-- Melee
 				{name = "Hatchet", costs = 100, description = "", model = "WEAPON_HATCHET"},
 				{name = "Knife", costs = 100, description = "", model = "WEAPON_KNIFE"},
@@ -39,16 +39,16 @@ opened = false,
 				{name = "Pistol", costs = 600, description = "", model = "WEAPON_PISTOL"},
 			}
 		},
-		["selected_weapon"] = { 
-			title = "WEAPON", 
+		["selected_weapon"] = {
+			title = "WEAPON",
 			name = "selected_weapon",
-			buttons = { 
+			buttons = {
 			}
 		},
-		["armor"] = { 
-			title = "armor", 
+		["armor"] = {
+			title = "armor",
 			name = "armor",
-			buttons = { 
+			buttons = {
 				{name = "", costs = 999999, description = ""},
 			}
 		},
@@ -65,8 +65,22 @@ local gunshop_locations = {
 	{-1110.640,2698.440,18.554-1.15},
 	{1690.670,3759.930,34.705-1.15},
 	{-320.156,6083.840,31.454-1.15},
-{21.840,-1107.430,29.2797-0.50}
+  {21.840,-1107.430,29.2797-0.50}
 }
+
+-- Configure the coordinates for the store owners.
+local peds = {
+  {type=4, hash=0x9e08633d, x=1692.733, y=3761.895, z=34.705, a=218.535},
+  {type=4, hash=0x9e08633d, x=253.629, y=-51.305, z=69.941, a=59.656},
+  {type=4, hash=0x9e08633d, x=841.363, y=-1035.350, z=28.195, a=328.528},
+  {type=4, hash=0x9e08633d, x=-330.933, y=6085.677, z=31.455, a=207.323},
+  {type=4, hash=0x9e08633d, x=-661.317, y=-933.515, z=21.829, a=152.798},
+  {type=4, hash=0x9e08633d, x=-1304.413, y=-395.902, z=36.696, a=44.440},
+  {type=4, hash=0x9e08633d, x=-1118.037, y=2700.568, z=18.554, a=196.070},
+  {type=4, hash=0x9e08633d, x=2566.596, y=292.286, z=108.735, a=337.291},
+  {type=4, hash=0x9e08633d, x=-3173.182, y=1089.176, z=20.839, a=223.930},
+}
+
 local gunshop_blips ={}
 local inrangeofgunshop = false
 
@@ -94,7 +108,7 @@ local function drawTxt(text,font,centre,x,y,scale,r,g,b,a)
 	SetTextCentre(centre)
 	SetTextEntry("STRING")
 	AddTextComponentString(text)
-	DrawText(x , y)	
+	DrawText(x , y)
 end
 
 local function IsPlayerInRangeOfgunshop()
@@ -112,7 +126,7 @@ local function ShowgunshopBlips(bool)
 		gunshop_blips = {}
 	end
 		for station,pos in pairs(gunshop_locations) do
-			-[[local blip = AddBlipForCoord(pos[1],pos[2],pos[3])
+			--[[local blip = AddBlipForCoord(pos[1],pos[2],pos[3])
 			-- 60 58 137
 			SetBlipSprite(blip,110)
 			BeginTextCommandSetBlipName("STRING")
@@ -143,7 +157,7 @@ end
 local function firstToUpper(str)
     return (str:gsub("^%l", string.upper))
 end
-local function OpenCreator()		
+local function OpenCreator()
 	local ped = LocalPed()
 	FreezeEntityPosition(ped,true)
 	if role == 'police' then
@@ -187,7 +201,7 @@ local function drawMenuButton(button,x,y,selected)
 	else
 		DrawRect(x,y,menu.width,menu.height,0,0,0,150)
 	end
-	DrawText(x - menu.width/2 + 0.005, y - menu.height/2 + 0.0028)	
+	DrawText(x - menu.width/2 + 0.005, y - menu.height/2 + 0.0028)
 end
 
 local function drawMenuInfo(text)
@@ -200,7 +214,7 @@ local function drawMenuInfo(text)
 	SetTextEntry("STRING")
 	AddTextComponentString(text)
 	DrawRect(0.675, 0.95,0.65,0.050,0,0,0,150)
-	DrawText(0.365, 0.934)	
+	DrawText(0.365, 0.934)
 end
 
 local function drawMenuRight(txt,x,y,selected)
@@ -217,7 +231,7 @@ local function drawMenuRight(txt,x,y,selected)
 	SetTextCentre(0)
 	SetTextEntry("STRING")
 	AddTextComponentString(txt)
-	DrawText(x + menu.width/2 - 0.03, y - menu.height/2 + 0.0028)	
+	DrawText(x + menu.width/2 - 0.03, y - menu.height/2 + 0.0028)
 end
 
 local function drawMenuTitle(txt,x,y)
@@ -229,7 +243,7 @@ local menu = an.menu
 	SetTextEntry("STRING")
 	AddTextComponentString(txt)
 	DrawRect(x,y,menu.width,menu.height,0,0,0,150)
-	DrawText(x - menu.width/2 + 0.005, y - menu.height/2 + 0.0028)	
+	DrawText(x - menu.width/2 + 0.005, y - menu.height/2 + 0.0028)
 end
 local function tablelength(T)
   local count = 0
@@ -258,7 +272,7 @@ local function OpenMenu(menu)
 	an.menu.from = 1
 	an.menu.to = 10
 	an.selectedbutton = 0
-	an.currentmenu = menu	
+	an.currentmenu = menu
 end
 local function ButtonSelected(button)
 	local ped = GetPlayerPed(-1)
@@ -271,7 +285,8 @@ local function ButtonSelected(button)
 			OpenMenu("armor")
 	elseif this == "weapons" then
 		if HasPedGotWeapon(LocalPed(),GetHashKey(button.model),false) then
-			AddAmmoToPed(LocalPed(),GetHashKey(button.model),GetMaxAmmoInClip(GetPlayerPed(-1),GetHashKey(button.model),1))
+			AddAmmoToPed(LocalPed(), GetHashKey(button.model), GetMaxAmmoInClip(GetPlayerPed(-1), GetHashKey(button.model),1)
+    )
 			-- Needs to have the money system hooked up
 		else
 			--TriggerServerEvent('es_freeroam:pay', btn,GetHashKey(button.model),button.costs)
@@ -289,8 +304,9 @@ local function ButtonSelected(button)
 	elseif this == "armor" then
 		if btn == "Armor" then
 			-- Needs to have the money system hooked up
-		end
-	end
+    end
+  end
+end
 end
 
 local backlock = false
@@ -309,12 +325,27 @@ local function Back()
 	else
 		OpenMenu(an.lastmenu)
 	end
-	
+
 end
 local function stringstarts(String,Start)
    return string.sub(String,1,string.len(Start))==Start
 end
 
+Citizen.CreateThread(function()
+  -- Load the ped modal (s_m_y_ammucity_01)
+  RequestModel(0x9e08633d)
+  while not HasModelLoaded(0x9e08633d) do
+    Wait(1)
+  end
+
+  -- Spawn the peds in the gun stores
+  for _, item in pairs(peds) do
+    ped = CreatePed(item.type, item.hash, item.x, item.y, item.z, item.a, true, true)
+    SetBlockingOfNonTemporaryEvents(ped, true)
+    SetPedFleeAttributes(ped, 0, 0)
+    -- FreezeEntityPosition(ped, true)
+  end
+  end)
 
 Citizen.CreateThread( function()
 	while true do
@@ -330,7 +361,7 @@ Citizen.CreateThread( function()
 		inrangeofgunshop = inrange
 		if IsControlJustPressed(1,201) and IsPlayerInRangeOfgunshop() then
 			if an.opened then
-				
+
 				CloseCreator()
 			else
 				OpenCreator()
@@ -345,10 +376,10 @@ Citizen.CreateThread( function()
 			local y = an.menu.y + 0.12
 			buttoncount = tablelength(menu.buttons)
 			local selected = false
-			
+
 			for i,button in pairs(menu.buttons) do
 				if i >= an.menu.from and i <= an.menu.to then
-					
+
 					if i == an.selectedbutton then
 						selected = true
 					else
@@ -377,7 +408,7 @@ Citizen.CreateThread( function()
 						ButtonSelected(button)
 					end
 				end
-			end	
+			end
 		end
 		if an.opened then
 			if IsControlJustPressed(1,202) then
@@ -402,9 +433,9 @@ Citizen.CreateThread( function()
 						an.menu.to = an.menu.to + 1
 						an.menu.from = an.menu.from + 1
 					end
-				end	
+				end
 			end
 		end
-		
+
 	end
 end)

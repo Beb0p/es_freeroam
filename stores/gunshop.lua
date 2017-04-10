@@ -4,7 +4,7 @@
 
 local an = {
 opened = false,
-	title = "GUN SHOP",
+	title = "Gun Shop",
 	currentmenu = "main",
 	lastmenu = nil,
 	currentpos = nil,
@@ -25,19 +25,18 @@ opened = false,
 			name = "main",
 			buttons = { 
 				{name = "Weapons", description = ""},
-				--{name = "Armor", description = ""},
+				{name = "Armor", description = ""},
 			}
 		},
 		["weapons"] = { 
 			title = "Weapons", 
 			name = "weapons",
 			buttons = { 
+				-- Melee
+				{name = "Hatchet", costs = 100, description = "", model = "WEAPON_HATCHET"},
 				{name = "Knife", costs = 100, description = "", model = "WEAPON_KNIFE"},
 				{name = "Baseball Bat", costs = 100, description = "", model = "WEAPON_BAT"},
-				{name = "Crowbar", costs = 100, description = "", model = "WEAPON_CROWBAR"},
-				{name = "Flashlight", costs = 50, description = "", model = "WEAPON_FLASHLIGHT"},
 				{name = "Pistol", costs = 600, description = "", model = "WEAPON_PISTOL"},
-				{name = "Combat Pistol", costs = 750, description = "", model = "WEAPON_COMBATPISTOL"},
 			}
 		},
 		["selected_weapon"] = { 
@@ -57,11 +56,11 @@ opened = false,
 }
 
 local gunshop_locations = {
-	{-662.101,-935.046,21.829-1.15},
-}
-
+{-662.101,-935.046,21.829-1.15},
 local gunshop_blips ={}
 local inrangeofgunshop = false
+
+local role = ''
 
 local function LocalPed()
 return GetPlayerPed(-1)
@@ -103,7 +102,7 @@ local function ShowgunshopBlips(bool)
 		gunshop_blips = {}
 	end
 		for station,pos in pairs(gunshop_locations) do
-			local blip = AddBlipForCoord(pos[1],pos[2],pos[3])
+			-[[local blip = AddBlipForCoord(pos[1],pos[2],pos[3])
 			-- 60 58 137
 			SetBlipSprite(blip,110)
 			BeginTextCommandSetBlipName("STRING")
@@ -111,7 +110,9 @@ local function ShowgunshopBlips(bool)
 			EndTextCommandSetBlipName(blip)
 			SetBlipAsShortRange(blip,true)
 			SetBlipAsMissionCreatorBlip(blip,true)
-			table.insert(gunshop_blips, {blip = blip, pos = pos})
+			table.insert(gunshop_blips, {blip = blip, pos = pos})]]
+			-- READ THIS:
+			-- If you are using ESSENTIAL_FREEROAM, the gunstore blips are already on the map
 		end
 end
 
@@ -257,15 +258,15 @@ local function ButtonSelected(button)
 		if btn == "Weapons" then
 			OpenMenu("weapons")
 		elseif btn == "Armor" then
-			--OpenMenu("armor")
+			OpenMenu("armor")
 	elseif this == "weapons" then
 		if HasPedGotWeapon(LocalPed(),GetHashKey(button.model),false) then
 			AddAmmoToPed(LocalPed(),GetHashKey(button.model),GetMaxAmmoInClip(GetPlayerPed(-1),GetHashKey(button.model),1))
-			-- Needs to work with a money system
+			-- Needs to have the money system hooked up
 		else
 			--TriggerServerEvent('es_freeroam:pay', btn,GetHashKey(button.model),button.costs)
 			GiveWeaponToPed(LocalPed(), GetHashKey(button.model), 500, true, true)
-			-- Needs to work with a money system
+			-- Needs to have the money system hooked up
 		end
 		if GetMaxAmmoInClip(GetPlayerPed(-1),GetHashKey(button.model),1) ~= false then
 		table.insert(an.menu['selected_weapon'].buttons,{name = "Ammo", costs = 50, description = "", model = button.model})
@@ -273,11 +274,11 @@ local function ButtonSelected(button)
 		end
 	elseif this == "selected_weapon" then
 		if btn == "Ammo" and Citizen.InvokeNative(0xDC16122C7A20C933,LocalPed(),GetHashKey(button.model),Citizen.PointerValueInt()) ~= GetAmmoInPedWeapon(LocalPed(),GetHashKey(button.model)) then
-			-- Needs to work with a money system
+			-- Needs to have the money system hooked up
 		end
 	elseif this == "armor" then
 		if btn == "Armor" then
-			
+			-- Needs to have the money system hooked up
 		end
 	end
 end
@@ -312,7 +313,7 @@ Citizen.CreateThread( function()
 		for i,b in ipairs(gunshop_locations) do
 			if IsPlayerWantedLevelGreater(GetPlayerIndex(),0) == false and  an.opened == false and IsPedInAnyVehicle(LocalPed(), true) == false and GetDistanceBetweenCoords(b[1],b[2],b[3],GetEntityCoords(LocalPed())) < 2 then
 				DrawMarker(1,b[1],b[2],b[3],0,0,0,0,0,0,1.501,1.5001,0.5001,0,155,255,200,0,0,0,0)
-				drawTxt('Press ~o~ENTER~s~ to ~g~purchase~b~ weapons',0,1,0.5,0.8,0.6,255,255,255,255)
+				drawTxt('Press ~y~ENTER~s~ to ~g~purchase ~b~weapons',0,1,0.5,0.8,0.6,255,255,255,255)
 				inrange = true
 			end
 		end

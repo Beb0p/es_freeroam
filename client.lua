@@ -2,6 +2,16 @@
 AddEventHandler('onClientMapStart', function()
     exports.spawnmanager:setAutoSpawn(true)
     exports.spawnmanager:forceRespawn()
+    exports.spawnmanager:setAutoSpawnCallback(function()
+        if spawnLock then
+            return
+        end
+
+        spawnLock = false
+
+        TriggerServerEvent('playerSpawn')
+        TriggerEvent('playerSpawn')
+    end)
 end)
 
 -- Allows the server to spawn the player
@@ -15,12 +25,12 @@ end)
     Citizen.CreateThread(function()
     while true do
       Wait(0)
-      DisplayCash(false);
+
       SetNotificationTextEntry("STRING");
       AddTextComponentString("Welcome to ~g~FiveM!.\n ~y~For more info go to github.com/FiveM-Scripts");
-      SetNotificationMessage("CHAR_ALL_PLAYERS_CONF", "CHAR_ALL_PLAYERS_CONF", true, 1, "Essential Freeroam", "v0.1.2");
+      SetNotificationMessage("CHAR_ALL_PLAYERS_CONF", "CHAR_ALL_PLAYERS_CONF", true, 1, "Essential Freeroam", "v0.1.3");
       DrawNotification(false, true);
-      Wait(5000000)
+      Wait(10000000)
     end
  end)
 

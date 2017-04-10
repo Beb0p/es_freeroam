@@ -6,4 +6,7 @@ database = {
           password = "changeme"
         }
 
+-- Configure the coordinates where the player gets spawned when he joins the server.
+spawnCoords = {x=464.091, y=-997.166, z=24.915}
+
 require "resources/essentialmode/lib/MySQL"

@@ -1,6 +1,6 @@
 RegisterServerEvent('playerSpawn')
 AddEventHandler('playerSpawn', function()
-	TriggerClientEvent('es_freeroam:spawnPlayer', source, 464.091, -997.166, 24.915)
+	TriggerClientEvent('es_freeroam:spawnPlayer', source, spawnCoords.x, spawnCoords.y, spawnCoords.z)
 end)
 
 AddEventHandler('es:playerLoaded', function(source)

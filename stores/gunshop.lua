@@ -30,11 +30,11 @@ opened = false,
 	lastmenu = nil,
 	currentpos = nil,
 	selectedbutton = 0,
-	marker = { r = 0, g = 155, b = 255, a = 200, type = 1 },
+	marker = { r = 0, g = 0, b = 155, a = 200, type = 1 },
 	menu = {
 		x = 0.9,
 		y = 0.08,
-		width = 0.2,
+		width = 0.4,
 		height = 0.04,
 		buttons = 10,
 		from = 1,
@@ -161,10 +161,11 @@ end
 
 local function drwMUITit(txt,x,y)
 local menu = gshp.menu
-	SetTextFont(2)
+	--SetTextFont(2)
+	SetTextFont(menu.font)
 	SetTextProportional(0)
 	SetTextScale(0.5, 0.5)
-	SetTextColour(255, 255, 255, 255)
+	SetTextColour(0, 255, 100, 255)
 	SetTextEntry("STRING")
 	AddTextComponentString(txt)
 	DrawRect(x,y,menu.width,menu.height,0,0,0,150)

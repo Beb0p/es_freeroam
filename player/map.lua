@@ -149,6 +149,11 @@ local blips = {
     {name="Safehouse", id=357, x=-59.124889373779, y= -616.55456542969, z=37.356777191162},
     {name="Safehouse", id=357, x=-255.05390930176, y= -943.32885742188, z=31.219989776611},
     {name="Safehouse", id=357, x=-771.79888916016, y= 351.59423828125, z=87.998191833496},
+    {name="Safehouse", id=357, x=-3086.428, y=339.252, z=6.371},
+
+    {name="Race", id=316, x=-1277.629, y=-2030.913, z=1.2823},
+    {name="Race", id=316, x=2384.969, y=4277.583, z=30.379},
+    {name="Race", id=316, x=1577.881, y=3836.107, z=30.7717},
     -- Yacht
     {name="Yacht", id=410, x=-2045.800, y=-1031.200, z=11.900},
     {name="Cargoship", id=410, x=-90.000, y=-2365.800, z=14.300},
@@ -168,6 +173,7 @@ Citizen.CreateThread(function()
   --load unloaded ipl's
   LoadMpDlcMaps()
   EnableMpDlcMaps(true)
+  RequestIpl("chop_props")
   RequestIpl("FIBlobby")
   RemoveIpl("FIBlobbyfake")
   RequestIpl("FBI_colPLUG")
@@ -218,11 +224,32 @@ Citizen.CreateThread(function()
   RemoveIpl("id2_14_pre_no_int")
   RemoveIpl("id2_14_during_door")
   RequestIpl("id2_14_during1")
+  RequestIpl("coronertrash")
   RequestIpl("Coroner_Int_on")
   RemoveIpl("Coroner_Int_off")
   RemoveIpl("bh1_16_refurb")
   RemoveIpl("jewel2fake")
+  RemoveIpl("bh1_16_doors_shut")
+  RequestIpl("refit_unload")
   RequestIpl("post_hiest_unload")
   RequestIpl("Carwash_with_spinners")
   RequestIpl("ferris_finale_Anim")
+  RemoveIpl("ch1_02_closed")
+  RequestIpl("ch1_02_open")
+  RequestIpl("AP1_04_TriAf01")
+  RequestIpl("CS2_06_TriAf02")
+  RequestIpl("CS4_04_TriAf03")
+  RemoveIpl("scafstartimap")
+  RequestIpl("scafendimap")
+  RemoveIpl("DT1_05_HC_REMOVE")
+  RequestIpl("DT1_05_HC_REQ")
+  RequestIpl("DT1_05_REQUEST")
+  RequestIpl("FINBANK")
+  RemoveIpl("DT1_03_Shutter")
+  RemoveIpl("DT1_03_Gr_Closed")
+  RequestIpl("ex_sm_13_office_01a")
+  RequestIpl("ex_sm_13_office_01b")
+  RequestIpl("ex_sm_13_office_02a")
+  RequestIpl("ex_sm_13_office_02b")
+
 end)

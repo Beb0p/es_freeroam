@@ -64,7 +64,7 @@ opened = false,
 			title = "armor", 
 			name = "armor",
 			buttons = { 
-				{name = "", costs = 999999, description = ""},
+				{name = "Armor", costs = 700, description = ""},
 			}
 		},
 	}
@@ -102,7 +102,7 @@ local function CloseCreator()
 	gshp.menu.to = 10
 end
 
-local function drawMenuButton(button,x,y,selected)
+local function drwMUIB(button,x,y,selected)
 	local menu = gshp.menu
 	SetTextFont(menu.font)
 	SetTextProportional(0)
@@ -271,7 +271,7 @@ Citizen.CreateThread( function()
 					else
 						selected = false
 					end
-					drawMenuButton(button,gshp.menu.x,y,selected)
+					drwMUIB(button,gshp.menu.x,y,selected)
 					if button.costs ~= nil then
 						if gshp.currentmenu == "weapons" then
 							if HasPedGotWeapon(CurrentPed(),GetHashKey(button.model),false) then

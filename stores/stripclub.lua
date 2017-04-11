@@ -1,13 +1,26 @@
-local peds = {
+-- Configure the coordinates where the strippers should be placed.
+local strippers = {
   {type=5, hash=0x2970a494, x=112.159, y=-1287.326, z=28.459, a=265.902},
   {type=5, hash=0x2970a494, x=108.440, y=-1289.298, z=28.859, a=338.700},
   {type=5, hash=0x2970a494, x=108.181, y=-1304.807, z=28.769, a=186.893},
   {type=5, hash=0x2970a494, x=118.125, y=-1283.357, z=28.277, a=124.466},
-  {type=5, hash=0x780c01bd, x=128.900, y=-1283.211, z=29.273, a=123.98},
+  }
+
+-- Configure the coordinates for the bartenders.
+  local bartenders = {
+    {type=5, hash=0x780c01bd, x=128.900, y=-1283.211, z=29.273, a=123.98},
+  }
+
+-- Configure the coordinates for the bartenders.
+local bouncers = {
   {type=4, hash=0x9fd4292d, x=130.328, y=-1298.409, z=29.233, a=211.486},
   {type=4, hash=0x9fd4292d, x=127.404, y=-1300.126, z=29.23, a=211.587},
   {type=4, hash=0x9fd4292d, x=111.088, y=-1304.371, z=29.020, a=296.699},
 }
+
+function LocalPed()
+  return GetPlayerPed(-1)
+end
 
 function StartText()
   DrawMarker(1, -1171.42, -1572.72, 3.6636, 0, 0, 0, 0, 0, 0, 4.0, 4.0, 2.0, 178, 236, 93, 155, 0, 0, 2, 0, 0, 0, 0)
@@ -54,9 +67,8 @@ Citizen.CreateThread(function()
 
 
   -- Spawn the bouncers to the coordinates
-  for _, item in pairs(peds) do
+  for _, item in pairs(bouncers) do
     ped =  CreatePed(item.type, item.hash, item.x, item.y, item.z, item.a, false, true)
-    if (item.hash == "0x2970a494")
     GiveWeaponToPed(ped, 0x1B06D571, 2800, false, true)
     SetPedCombatAttributes(ped, 46, true)
     SetPedFleeAttributes(ped, 0, 0)
@@ -68,6 +80,21 @@ Citizen.CreateThread(function()
     SetPedDiesWhenInjured(ped, false)
     TaskPlayAnim(ped,"mini@strip_club@idles@bouncer@base","base", 8.0, 0.0, -1, 1, 0, 0, 0, 0)
     end
+
+  -- Spawn the strippers to the coordinates
+  for _, item in pairs(strippers) do
+    stripper =  CreatePed(item.type, item.hash, item.x, item.y, item.z, item.a, false, true)
+    GiveWeaponToPed(stripper, 0x99B507EA, 2800, false, true)
+    SetPedCombatAttributes(stripper, 46, true)
+    SetPedFleeAttributes(stripper, 0, 0)
+    SetPedArmour(stripper, 200)
+    SetPedMaxHealth(stripper, 200)
+    SetPedDiesWhenInjured(ped, false)
+    SetPedRelationshipGroupHash(stripper, GetHashKey("army"))
+    TaskPlayAnim(stripper,"mini@strip_club@idles@stripper","stripper_idle_03", 8.0, 0.0, -1, 1, 0, 0, 0, 0)
+  end
+end)
+
 
 local playerCoords
 local playerPed
@@ -86,6 +113,7 @@ Citizen.CreateThread(function()
 
          -- Start mission
          if(IsControlPressed(1, 38)) then
+           TriggerServerEvent("es_freeroam:pay", tonumber(50))
            Toxicated()
            Citizen.Wait(120000)
            reality()

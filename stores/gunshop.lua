@@ -60,12 +60,6 @@ opened = false,
 				{name = "Pistol", costs = 600, description = "", model = "WEAPON_PISTOL"},
 			}
 		},
-		["IGNORE THIS"] = { 
-			title = "IGNORE THIS", 
-			name = "IGNORE THIS",
-			buttons = { 
-			}
-		},
 		["armor"] = { 
 			title = "armor", 
 			name = "armor",
